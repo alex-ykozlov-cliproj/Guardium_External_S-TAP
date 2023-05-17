@@ -1,3 +1,0 @@
-# MAINTAINERS
-
-Rich Jerrell
