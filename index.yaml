@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  estap:
+  - apiVersion: v1
+    appVersion: 11.3.0
+    created: "2023-05-17T10:29:52.815254377Z"
+    description: Deploy Guardium External S-TAP
+    digest: dfa978b1b37dcc062d99b78b90f731cd568036c9af21d8b3104ca5784a6ba2b2
+    kubeVersion: '>=1.9.0-0'
+    name: estap
+    urls:
+    - https://github.com/alex-ykozlov-cliproj/Guardium_External_S-TAP/releases/download/estap-1.0.0/estap-1.0.0.tgz
+    version: 1.0.0
+generated: "2023-05-17T10:29:52.815260078Z"
