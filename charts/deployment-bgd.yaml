@@ -1,0 +1,173 @@
+﻿kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: bgd
+  namespace: user1-bgd
+  uid: 2cef004f-b94d-4a55-82a4-1a358f4badc5
+  resourceVersion: '83339'
+  generation: 3
+  creationTimestamp: '2023-05-16T21:25:36Z'
+  labels:
+    app: bgd
+    app.kubernetes.io/instance: bgd-app
+  annotations:
+    deployment.kubernetes.io/revision: '3'
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"bgd","app.kubernetes.io/instance":"bgd-app"},"name":"bgd","namespace":"user1-bgd"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"bgd"}},"strategy":{},"template":{"metadata":{"labels":{"app":"bgd"}},"spec":{"containers":[{"env":[{"name":"COLOR","value":"blue"}],"image":"quay.io/rhdevelopers/bgd:1.0.0","name":"bgd","resources":{},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]}}}],"securityContext":{"runAsNonRoot":true,"seccompProfile":{"type":"RuntimeDefault"}}}}}}
+  managedFields:
+    - manager: argocd-controller
+      operation: Update
+      apiVersion: apps/v1
+      time: '2023-05-16T21:38:34Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:kubectl.kubernetes.io/last-applied-configuration': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+            'f:app.kubernetes.io/instance': {}
+        'f:spec':
+          'f:progressDeadlineSeconds': {}
+          'f:replicas': {}
+          'f:revisionHistoryLimit': {}
+          'f:selector': {}
+          'f:strategy':
+            'f:rollingUpdate':
+              .: {}
+              'f:maxSurge': {}
+              'f:maxUnavailable': {}
+            'f:type': {}
+          'f:template':
+            'f:metadata':
+              'f:labels':
+                .: {}
+                'f:app': {}
+            'f:spec':
+              'f:containers':
+                'k:{"name":"bgd"}':
+                  .: {}
+                  'f:env':
+                    .: {}
+                    'k:{"name":"COLOR"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                  'f:image': {}
+                  'f:imagePullPolicy': {}
+                  'f:name': {}
+                  'f:resources': {}
+                  'f:securityContext':
+                    .: {}
+                    'f:allowPrivilegeEscalation': {}
+                    'f:capabilities':
+                      .: {}
+                      'f:drop': {}
+                  'f:terminationMessagePath': {}
+                  'f:terminationMessagePolicy': {}
+              'f:dnsPolicy': {}
+              'f:restartPolicy': {}
+              'f:schedulerName': {}
+              'f:securityContext':
+                .: {}
+                'f:runAsNonRoot': {}
+                'f:seccompProfile':
+                  .: {}
+                  'f:type': {}
+              'f:terminationGracePeriodSeconds': {}
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: apps/v1
+      time: '2023-05-16T21:38:36Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            'f:deployment.kubernetes.io/revision': {}
+        'f:status':
+          'f:availableReplicas': {}
+          'f:conditions':
+            .: {}
+            'k:{"type":"Available"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+            'k:{"type":"Progressing"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+          'f:observedGeneration': {}
+          'f:readyReplicas': {}
+          'f:replicas': {}
+          'f:updatedReplicas': {}
+      subresource: status
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bgd
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: bgd
+    spec:
+      containers:
+        - name: bgd
+          image: 'quay.io/rhdevelopers/bgd:1.0.0'
+          env:
+            - name: COLOR
+              value: blue
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            capabilities:
+              drop:
+                - ALL
+            allowPrivilegeEscalation: false
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+status:
+  observedGeneration: 3
+  replicas: 1
+  updatedReplicas: 1
+  readyReplicas: 1
+  availableReplicas: 1
+  conditions:
+    - type: Available
+      status: 'True'
+      lastUpdateTime: '2023-05-16T21:25:45Z'
+      lastTransitionTime: '2023-05-16T21:25:45Z'
+      reason: MinimumReplicasAvailable
+      message: Deployment has minimum availability.
+    - type: Progressing
+      status: 'True'
+      lastUpdateTime: '2023-05-16T21:38:36Z'
+      lastTransitionTime: '2023-05-16T21:25:36Z'
+      reason: NewReplicaSetAvailable
+      message: ReplicaSet "bgd-9d7b5c6f9" has successfully progressed.

@@ -1,0 +1,467 @@
+﻿kind: Deployment
+apiVersion: apps/v1
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: '2'
+    meta.helm.sh/release-name: estap-test-01
+    meta.helm.sh/release-namespace: user1-bgd
+  resourceVersion: '281087'
+  name: estap-estap-test-01
+  uid: d555a7de-e516-40f4-9566-ef781c5d4cd8
+  creationTimestamp: '2023-05-17T10:56:22Z'
+  generation: 2
+  managedFields:
+    - manager: bridge
+      operation: Update
+      apiVersion: apps/v1
+      time: '2023-05-17T11:08:30Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:meta.helm.sh/release-name': {}
+            'f:meta.helm.sh/release-namespace': {}
+          'f:labels':
+            'f:helm.sh/chart': {}
+            'f:app.kubernetes.io/managed-by': {}
+            'f:component': {}
+            'f:chart': {}
+            'f:app': {}
+            'f:app.kubernetes.io/name': {}
+            .: {}
+            'f:app.kubernetes.io/part-of': {}
+            'f:release': {}
+            'f:heritage': {}
+            'f:app.kubernetes.io/instance': {}
+            'f:app.kubernetes.io/component': {}
+        'f:spec':
+          'f:progressDeadlineSeconds': {}
+          'f:replicas': {}
+          'f:revisionHistoryLimit': {}
+          'f:selector': {}
+          'f:strategy':
+            'f:rollingUpdate':
+              .: {}
+              'f:maxSurge': {}
+              'f:maxUnavailable': {}
+            'f:type': {}
+          'f:template':
+            'f:metadata':
+              'f:labels':
+                'f:helm.sh/chart': {}
+                'f:app.kubernetes.io/managed-by': {}
+                'f:component': {}
+                'f:chart': {}
+                'f:app': {}
+                'f:app.kubernetes.io/name': {}
+                .: {}
+                'f:app.kubernetes.io/part-of': {}
+                'f:release': {}
+                'f:heritage': {}
+                'f:tier': {}
+                'f:app.kubernetes.io/instance': {}
+                'f:app.kubernetes.io/component': {}
+            'f:spec':
+              'f:volumes':
+                .: {}
+                'k:{"name":"dshm"}':
+                  .: {}
+                  'f:emptyDir':
+                    .: {}
+                    'f:medium': {}
+                    'f:sizeLimit': {}
+                  'f:name': {}
+                'k:{"name":"ephemeral"}':
+                  .: {}
+                  'f:emptyDir': {}
+                  'f:name': {}
+                'k:{"name":"metastore-volume"}':
+                  .: {}
+                  'f:emptyDir': {}
+                  'f:name': {}
+              'f:containers':
+                'k:{"name":"estap-estap-test-01"}':
+                  'f:envFrom': {}
+                  'f:image': {}
+                  'f:volumeMounts':
+                    'k:{"mountPath":"/etc/supervisor.d"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:subPath': {}
+                    'k:{"mountPath":"/usr/local/guardium"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:subPath': {}
+                    'k:{"mountPath":"/var/log/gp"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:subPath': {}
+                    'k:{"mountPath":"/tmp"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:subPath': {}
+                    'k:{"mountPath":"/etc/gp"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:subPath': {}
+                    'k:{"mountPath":"/dev/shm"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                    .: {}
+                    'k:{"mountPath":"/tmp/metastore"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                    'k:{"mountPath":"/var/log/supervisord"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:subPath': {}
+                    'k:{"mountPath":"/var/support/gp"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:subPath': {}
+                    'k:{"mountPath":"/var/run/gp"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:subPath': {}
+                    'k:{"mountPath":"/var/run/supervisord"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:subPath': {}
+                  'f:terminationMessagePolicy': {}
+                  .: {}
+                  'f:resources':
+                    .: {}
+                    'f:limits':
+                      .: {}
+                      'f:cpu': {}
+                      'f:memory': {}
+                    'f:requests':
+                      .: {}
+                      'f:cpu': {}
+                      'f:memory': {}
+                  'f:livenessProbe':
+                    .: {}
+                    'f:exec':
+                      .: {}
+                      'f:command': {}
+                    'f:failureThreshold': {}
+                    'f:periodSeconds': {}
+                    'f:successThreshold': {}
+                    'f:timeoutSeconds': {}
+                  'f:env':
+                    .: {}
+                    'k:{"name":"STAP_CONFIG_PROXY_GROUP_UUID"}':
+                      .: {}
+                      'f:name': {}
+                      'f:valueFrom':
+                        .: {}
+                        'f:configMapKeyRef': {}
+                    'k:{"name":"STAP_CONFIG_PROXY_PEM_PATH"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                    'k:{"name":"container"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                  'f:readinessProbe':
+                    .: {}
+                    'f:exec':
+                      .: {}
+                      'f:command': {}
+                    'f:failureThreshold': {}
+                    'f:periodSeconds': {}
+                    'f:successThreshold': {}
+                    'f:timeoutSeconds': {}
+                  'f:securityContext':
+                    .: {}
+                    'f:allowPrivilegeEscalation': {}
+                    'f:capabilities':
+                      .: {}
+                      'f:drop': {}
+                    'f:privileged': {}
+                    'f:readOnlyRootFilesystem': {}
+                  'f:terminationMessagePath': {}
+                  'f:imagePullPolicy': {}
+                  'f:ports':
+                    .: {}
+                    'k:{"containerPort":8080,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":8888,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                  'f:name': {}
+              'f:dnsPolicy': {}
+              'f:serviceAccount': {}
+              'f:restartPolicy': {}
+              'f:schedulerName': {}
+              'f:terminationGracePeriodSeconds': {}
+              'f:serviceAccountName': {}
+              'f:securityContext':
+                .: {}
+                'f:fsGroup': {}
+                'f:runAsNonRoot': {}
+                'f:runAsUser': {}
+                'f:supplementalGroups': {}
+              'f:affinity':
+                .: {}
+                'f:nodeAffinity':
+                  .: {}
+                  'f:requiredDuringSchedulingIgnoredDuringExecution': {}
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: apps/v1
+      time: '2023-05-17T11:18:31Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            'f:deployment.kubernetes.io/revision': {}
+        'f:status':
+          'f:conditions':
+            .: {}
+            'k:{"type":"Available"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+            'k:{"type":"Progressing"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+            'k:{"type":"ReplicaFailure"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+          'f:observedGeneration': {}
+          'f:unavailableReplicas': {}
+      subresource: status
+  namespace: user1-bgd
+  labels:
+    app: estap-estap-test-01
+    app.kubernetes.io/part-of: estap
+    app.kubernetes.io/instance: estap-test-01
+    release: estap-test-01
+    app.kubernetes.io/component: estap
+    app.kubernetes.io/managed-by: Helm
+    helm.sh/chart: estap
+    app.kubernetes.io/name: estap
+    component: estap-estap-test-01
+    chart: estap
+    heritage: Helm
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: estap-estap-test-01
+      component: estap-estap-test-01
+      tier: backend
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: estap-estap-test-01
+        tier: backend
+        app.kubernetes.io/part-of: estap
+        app.kubernetes.io/instance: estap-test-01
+        release: estap-test-01
+        app.kubernetes.io/component: estap
+        app.kubernetes.io/managed-by: Helm
+        helm.sh/chart: estap
+        app.kubernetes.io/name: estap
+        component: estap-estap-test-01
+        chart: estap
+        heritage: Helm
+    spec:
+      restartPolicy: Always
+      serviceAccountName: default
+      schedulerName: default-scheduler
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/arch
+                    operator: In
+                    values:
+                      - amd64
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsUser: 1000
+        runAsNonRoot: true
+        supplementalGroups:
+          - 1000
+        fsGroup: 1000
+      containers:
+        - resources:
+            limits:
+              cpu: 500m
+              memory: 756Mi
+            requests:
+              cpu: 100m
+              memory: 512Mi
+          readinessProbe:
+            exec:
+              command:
+                - /usr/sbin/gproxy_ready
+            timeoutSeconds: 1
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 5
+          terminationMessagePath: /dev/termination-log
+          name: estap-estap-test-01
+          livenessProbe:
+            exec:
+              command:
+                - /usr/sbin/gproxy_live
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 4
+          env:
+            - name: container
+              value: docker
+            - name: STAP_CONFIG_PROXY_GROUP_UUID
+              valueFrom:
+                configMapKeyRef:
+                  name: estap-estap-test-01-configmap
+                  key: uuid
+            - name: STAP_CONFIG_PROXY_PEM_PATH
+              value: /tmp/metastore/estap.pem
+          securityContext:
+            capabilities:
+              drop:
+                - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+            - name: db
+              containerPort: 8888
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: dshm
+              mountPath: /dev/shm
+            - name: ephemeral
+              mountPath: /tmp
+              subPath: tmp
+            - name: ephemeral
+              mountPath: /var/log/supervisord
+              subPath: supervisord_log
+            - name: ephemeral
+              mountPath: /var/log/gp
+              subPath: gp_log
+            - name: ephemeral
+              mountPath: /var/run/supervisord
+              subPath: run_supervisord
+            - name: ephemeral
+              mountPath: /var/run/gp
+              subPath: run_gp
+            - name: ephemeral
+              mountPath: /var/support/gp
+              subPath: support_gp
+            - name: ephemeral
+              mountPath: /usr/local/guardium
+              subPath: usr/local/guardium
+            - name: ephemeral
+              mountPath: /etc/supervisor.d
+              subPath: etc/supervisor.d
+            - name: ephemeral
+              mountPath: /etc/gp
+              subPath: etc/gp
+            - name: metastore-volume
+              mountPath: /tmp/metastore
+          terminationMessagePolicy: File
+          envFrom:
+            - configMapRef:
+                name: estap-estap-test-01-configmap
+          image: 'docker.io/ibmcom/guardium_external_s-tap:v11.3.0'
+      serviceAccount: default
+      volumes:
+        - name: metastore-volume
+          emptyDir: {}
+        - name: ephemeral
+          emptyDir: {}
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 500Mi
+      dnsPolicy: ClusterFirst
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+status:
+  observedGeneration: 2
+  unavailableReplicas: 3
+  conditions:
+    - type: Available
+      status: 'False'
+      lastUpdateTime: '2023-05-17T10:56:22Z'
+      lastTransitionTime: '2023-05-17T10:56:22Z'
+      reason: MinimumReplicasUnavailable
+      message: Deployment does not have minimum availability.
+    - type: ReplicaFailure
+      status: 'True'
+      lastUpdateTime: '2023-05-17T10:56:22Z'
+      lastTransitionTime: '2023-05-17T10:56:22Z'
+      reason: FailedCreate
+      message: >-
+        pods "estap-estap-test-01-69f9cfdcf5-" is forbidden: unable to validate
+        against any security context constraint: [provider "anyuid": Forbidden:
+        not usable by user or serviceaccount, provider restricted-v2:
+        .spec.securityContext.fsGroup: Invalid value: []int64{1000}: 1000 is not
+        an allowed group, spec.containers[0].securityContext.runAsUser: Invalid
+        value: 1000: must be in the ranges: [1000690000, 1000699999], provider
+        "restricted": Forbidden: not usable by user or serviceaccount, provider
+        "nonroot-v2": Forbidden: not usable by user or serviceaccount, provider
+        "nonroot": Forbidden: not usable by user or serviceaccount, provider
+        "hostmount-anyuid": Forbidden: not usable by user or serviceaccount,
+        provider "machine-api-termination-handler": Forbidden: not usable by
+        user or serviceaccount, provider "hostnetwork-v2": Forbidden: not usable
+        by user or serviceaccount, provider "hostnetwork": Forbidden: not usable
+        by user or serviceaccount, provider "hostaccess": Forbidden: not usable
+        by user or serviceaccount, provider "node-exporter": Forbidden: not
+        usable by user or serviceaccount, provider "privileged": Forbidden: not
+        usable by user or serviceaccount]
+    - type: Progressing
+      status: 'False'
+      lastUpdateTime: '2023-05-17T11:18:31Z'
+      lastTransitionTime: '2023-05-17T11:18:31Z'
+      reason: ProgressDeadlineExceeded
+      message: ReplicaSet "estap-estap-test-01-b74dfd64b" has timed out progressing.

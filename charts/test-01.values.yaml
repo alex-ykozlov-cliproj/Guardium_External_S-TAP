@@ -1,0 +1,22 @@
+estap:
+  db:
+    host: 127.0.0.1
+    port: 5432
+    type: pgsql
+  fsGroup: 1000690000
+  guardium:
+    host: 127.0.0.1
+  limits:
+    cpu: 500m
+    memory: 756Mi
+  proxy:
+    debug: 0
+  replicas: 2
+  requests:
+    cpu: 100m
+    memory: 512Mi
+  serviceAccountName: default
+  uid: 1000690000
+global:
+  imagePullPolicy: IfNotPresent
+  tag: v11.3.0

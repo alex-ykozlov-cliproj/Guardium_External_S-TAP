@@ -1,0 +1,295 @@
+Release "test-01" does not exist. Installing it now.
+NAME: test-01
+LAST DEPLOYED: Wed May 17 08:21:17 2023
+NAMESPACE: default
+STATUS: pending-install
+REVISION: 1
+TEST SUITE: None
+HOOKS:
+MANIFEST:
+---
+# Source: estap/templates/default-networkpolicy.yaml
+# vim: ts=2:sw=2:et
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: default
+  name: estap-test-01-deny-all
+  labels:
+    component: estap-test-01
+    app: estap-test-01
+    
+    chart: "estap"
+    heritage: Helm
+    release: test-01
+    app.kubernetes.io/name: estap
+    helm.sh/chart: estap
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: test-01
+    app.kubernetes.io/component: estap
+    app.kubernetes.io/part-of: estap
+spec:
+  ingress: []
+  egress: []
+  podSelector:
+    matchLabels:
+      component: estap-test-01
+      tier: backend
+---
+# Source: estap/templates/estap-networkpolicy.yaml
+# vim: ts=2:sw=2:et
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: default
+  name: estap-test-01-networkpolicy
+  labels:
+    component: estap-test-01
+    app: estap-test-01
+    
+    chart: "estap"
+    heritage: Helm
+    release: test-01
+    app.kubernetes.io/name: estap
+    helm.sh/chart: estap
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: test-01
+    app.kubernetes.io/component: estap
+    app.kubernetes.io/part-of: estap
+spec:
+  ingress:
+  - ports:
+    - port: 8888
+      protocol: TCP
+  egress:
+  - {}
+  podSelector:
+    matchLabels:
+      component: estap-test-01
+      tier: backend
+  policyTypes:
+  - Ingress
+  - Egress
+---
+# Source: estap/templates/estap-configmap.yaml
+# vim: ts=2:sw=2:et
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: default
+  name: estap-test-01-configmap
+data:
+  uuid: "5fdabd72-9336-44c2-863d-42aba40d1953"
+  STAP_CONFIG_TAP_TAP_IP: "NULL"
+  STAP_CONFIG_PARTICIPATE_IN_LOAD_BALANCING: "0"
+  STAP_CONFIG_PROXY_GROUP_MEMBER_COUNT: "2"
+  STAP_CONFIG_PROXY_DEBUG: "0"
+  STAP_CONFIG_PROXY_NUM_WORKERS: "1"
+  STAP_CONFIG_PROXY_PROXY_PROTOCOL: "0"
+  STAP_CONFIG_PROXY_DISCONNECT_ON_INVALID_CERTIFICATE: "0"
+  STAP_CONFIG_PROXY_NOTIFY_ON_INVALID_CERTIFICATE: "0"
+  STAP_CONFIG_PROXY_LISTEN_PORT: "8888"
+  STAP_CONFIG_PROXY_DB_HOST: "127.0.0.1"
+  STAP_CONFIG_DB_0_REAL_DB_PORT: "5432"
+  STAP_CONFIG_DB_0_DB_TYPE: "pgsql"
+  STAP_CONFIG_SQLGUARD_0_SQLGUARD_IP: "127.0.0.1"
+  STAP_CONFIG_SQLGUARD_0_PRIMARY: "1"
+---
+# Source: estap/templates/estap-service.yaml
+# vim: ts=2:sw=2:et
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: estap-test-01-lb
+  labels:
+    serviceType : LoadBalancer
+    app: estap-test-01
+    component: estap-test-01
+    chart: "estap"
+    heritage: Helm
+    release: test-01
+    app.kubernetes.io/name: estap
+    helm.sh/chart: estap
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: test-01
+    app.kubernetes.io/part-of: estap-test-01
+spec:
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    name: estap-test-01-lb
+    port: 8888
+    targetPort: 8888
+  selector:
+    component: estap-test-01
+    tier: backend
+---
+# Source: estap/templates/estap-deploy.yaml
+# vim: ts=2:sw=2:et
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: estap-test-01
+  labels:
+    component: estap-test-01
+    app: estap-test-01
+    
+    chart: "estap"
+    heritage: Helm
+    release: test-01
+    app.kubernetes.io/name: estap
+    helm.sh/chart: estap
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: test-01
+    app.kubernetes.io/component: estap
+    app.kubernetes.io/part-of: estap
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      component: estap-test-01
+      app: estap-test-01
+      tier: backend
+  template:
+    metadata:
+      labels:
+        component: estap-test-01
+        app: estap-test-01
+        tier: backend
+        
+        chart: "estap"
+        heritage: Helm
+        release: test-01
+        app.kubernetes.io/name: estap
+        helm.sh/chart: estap
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/instance: test-01
+        app.kubernetes.io/component: estap
+        app.kubernetes.io/part-of: estap
+    spec:
+      volumes:
+      - emptyDir: {}
+        name: metastore-volume
+      - emptyDir: {}
+        name: ephemeral
+      - name: dshm
+        emptyDir: 
+          medium: Memory
+          sizeLimit: 500Mi
+      serviceAccountName: default
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+      hostIPC: false
+      hostNetwork: false
+      hostPID: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+        supplementalGroups: [ 1000 ]
+      containers:
+      - imagePullPolicy: IfNotPresent
+        name: estap-test-01
+        image: docker.io/ibmcom/guardium_external_s-tap:v11.4.0
+        livenessProbe:
+          exec:
+            command:
+            - "/usr/sbin/gproxy_live"
+          periodSeconds: 10
+          failureThreshold: 4
+          initialDelaySeconds: 0
+        readinessProbe:
+          exec:
+            command:
+            - "/usr/sbin/gproxy_ready"
+          periodSeconds: 5
+          failureThreshold: 5
+          initialDelaySeconds: 0
+        envFrom:
+          - configMapRef:
+              name: estap-test-01-configmap
+        env:
+          - name: container
+            value: docker
+          - name: STAP_CONFIG_PROXY_GROUP_UUID
+            valueFrom:
+              configMapKeyRef:
+                name: estap-test-01-configmap
+                key: uuid
+          - name: STAP_CONFIG_PROXY_PEM_PATH
+            value: /tmp/metastore/estap.pem
+        ports:
+          - containerPort: 8080
+            protocol: "TCP"
+            name: "http"
+          - containerPort: 8888
+            protocol: "TCP"
+            name: "db"
+        volumeMounts:
+          - mountPath: /dev/shm
+            name: dshm
+          - mountPath: /tmp
+            name: ephemeral
+            subPath: tmp
+          - mountPath: /var/log/supervisord
+            name: ephemeral
+            subPath: supervisord_log
+          - mountPath: /var/log/gp
+            name: ephemeral
+            subPath: gp_log
+          - mountPath: /var/run/supervisord
+            name: ephemeral
+            subPath: run_supervisord
+          - mountPath: /var/run/gp
+            name: ephemeral
+            subPath: run_gp
+          - mountPath: /var/support/gp
+            name: ephemeral
+            subPath: support_gp
+          - mountPath: /usr/local/guardium
+            name: ephemeral
+            subPath: usr/local/guardium
+          - mountPath: /etc/supervisor.d
+            name: ephemeral
+            subPath: etc/supervisor.d
+          - mountPath: /etc/gp
+            name: ephemeral
+            subPath: etc/gp
+          - mountPath: /tmp/metastore
+            name: metastore-volume
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          privileged: false
+          readOnlyRootFilesystem: true
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+          limits:
+            cpu: 500m
+            memory: 756Mi
+---
+# Source: estap/templates/estap-create-default-secret.yaml
+# vim: ts=2:sw=2:et
+---
+# Source: estap/templates/estap-create-secret-writer-role.yaml
+# vim: ts=2:sw=2:et
+---
+# Source: estap/templates/estap-create-secret-writer-rolebinding.yaml
+# vim: ts=2:sw=2:et
+---
+# Source: estap/templates/estap-create-secret-writer-serviceaccount.yaml
+# vim: ts=2:sw=2:et
+

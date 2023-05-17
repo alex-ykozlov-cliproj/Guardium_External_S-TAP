@@ -1,0 +1,153 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: estap-test-01
+  labels:
+    component: estap-test-01
+    app: estap-test-01
+    
+    chart: "estap"
+    heritage: Helm
+    release: test-01
+    app.kubernetes.io/name: estap
+    helm.sh/chart: estap
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: test-01
+    app.kubernetes.io/component: estap
+    app.kubernetes.io/part-of: estap
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      component: estap-test-01
+      app: estap-test-01
+      tier: backend
+  template:
+    metadata:
+      labels:
+        component: estap-test-01
+        app: estap-test-01
+        tier: backend
+        
+        chart: "estap"
+        heritage: Helm
+        release: test-01
+        app.kubernetes.io/name: estap
+        helm.sh/chart: estap
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/instance: test-01
+        app.kubernetes.io/component: estap
+        app.kubernetes.io/part-of: estap
+    spec:
+      volumes:
+      - emptyDir: {}
+        name: metastore-volume
+      - emptyDir: {}
+        name: ephemeral
+      - name: dshm
+        emptyDir: 
+          medium: Memory
+          sizeLimit: 500Mi
+      serviceAccountName: default
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+      hostIPC: false
+      hostNetwork: false
+      hostPID: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+        supplementalGroups: [ 1000 ]
+      containers:
+      - imagePullPolicy: IfNotPresent
+        name: estap-test-01
+        image: docker.io/ibmcom/guardium_external_s-tap:v11.4.0
+        livenessProbe:
+          exec:
+            command:
+            - "/usr/sbin/gproxy_live"
+          periodSeconds: 10
+          failureThreshold: 4
+          initialDelaySeconds: 0
+        readinessProbe:
+          exec:
+            command:
+            - "/usr/sbin/gproxy_ready"
+          periodSeconds: 5
+          failureThreshold: 5
+          initialDelaySeconds: 0
+        envFrom:
+          - configMapRef:
+              name: estap-test-01-configmap
+        env:
+          - name: container
+            value: docker
+          - name: STAP_CONFIG_PROXY_GROUP_UUID
+            valueFrom:
+              configMapKeyRef:
+                name: estap-test-01-configmap
+                key: uuid
+          - name: STAP_CONFIG_PROXY_PEM_PATH
+            value: /tmp/metastore/estap.pem
+        ports:
+          - containerPort: 8080
+            protocol: "TCP"
+            name: "http"
+          - containerPort: 8888
+            protocol: "TCP"
+            name: "db"
+        volumeMounts:
+          - mountPath: /dev/shm
+            name: dshm
+          - mountPath: /tmp
+            name: ephemeral
+            subPath: tmp
+          - mountPath: /var/log/supervisord
+            name: ephemeral
+            subPath: supervisord_log
+          - mountPath: /var/log/gp
+            name: ephemeral
+            subPath: gp_log
+          - mountPath: /var/run/supervisord
+            name: ephemeral
+            subPath: run_supervisord
+          - mountPath: /var/run/gp
+            name: ephemeral
+            subPath: run_gp
+          - mountPath: /var/support/gp
+            name: ephemeral
+            subPath: support_gp
+          - mountPath: /usr/local/guardium
+            name: ephemeral
+            subPath: usr/local/guardium
+          - mountPath: /etc/supervisor.d
+            name: ephemeral
+            subPath: etc/supervisor.d
+          - mountPath: /etc/gp
+            name: ephemeral
+            subPath: etc/gp
+          - mountPath: /tmp/metastore
+            name: metastore-volume
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          privileged: false
+          readOnlyRootFilesystem: true
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+          limits:
+            cpu: 500m
+            memory: 756Mi
