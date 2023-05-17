@@ -1,1 +1,23 @@
 2
+
+IBM Guardium Helm docs:
+https://www.ibm.com/docs/en/guardium/11.3?topic=tap-deploying-external-s-helm
+IBM Guardium OCP docs:
+
+
+
+pods "estap-estap-test-01-b74dfd64b-" is forbidden: unable to validate against any security context constraint: [
+    provider "anyuid": Forbidden: not usable by user or serviceaccount, 
+    provider restricted-v2: .spec.securityContext.fsGroup: Invalid value: []int64{1000}: 1000 is not an allowed group, 
+    spec.containers[0].securityContext.runAsUser: Invalid value: 1000: must be in the ranges: [1000690000, 1000699999], 
+    provider "restricted": Forbidden: not usable by user or serviceaccount, 
+    provider "nonroot-v2": Forbidden: not usable by user or serviceaccount, 
+    provider "nonroot": Forbidden: not usable by user or serviceaccount, 
+    provider "hostmount-anyuid": Forbidden: not usable by user or serviceaccount,
+    provider "machine-api-termination-handler": Forbidden: not usable by user or serviceaccount, 
+    provider "hostnetwork-v2": Forbidden: not usable by user or serviceaccount, 
+    provider "hostnetwork": Forbidden: not usable by user or serviceaccount, 
+    provider "hostaccess": Forbidden: not usable by user or serviceaccount, 
+    provider "node-exporter": Forbidden: not usable by user or serviceaccount, 
+    provider "privileged": Forbidden: not usable by user or serviceaccount
+]
