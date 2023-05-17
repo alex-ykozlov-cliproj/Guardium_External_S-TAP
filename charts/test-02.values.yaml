@@ -22,5 +22,5 @@ global:
   imagePullPolicy: IfNotPresent
   dockerRegistryPrefix: "icr.io/guardium-insights"
   tag: "v11.5.3"
-  secret: "estap-secret-test-01"
-  secretWriterServiceAccountName: "estap-secret-writer-test-01"
+  secret: "estap-secret-test-02"
+  secretWriterServiceAccountName: "estap-secret-writer-test-02"
